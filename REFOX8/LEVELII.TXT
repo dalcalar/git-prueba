@@ -1,0 +1,158 @@
+APPLICATION DISTRIBUTION WITH BRANDED LEVEL II FILES
+====================================================
+
+The LEVII_?0.APP's
+------------------
+                   LEVII_50.APP (VFP 5.0 & VFP 6.0)
+                   LEVII_30.APP (VFP 3.0)
+
+These APP's for Visual FoxPro 3.0 and 5.0/6.0 allow processing
+of the FoxPro application and runtime files to enable
+them to be run without affecting existing non-branded
+(or differently branded) FoxPro applicationse.  This is
+achieved by ensuring the branded FoxPro runtime files:
+   VFP300.ESL for VFP 3.0 
+   VFP500.DLL for VFP 5.0
+   VFP6R.DLL  for VFP 6.0
+can be referenced only by the associated branded application.
+This requires the EXE file to reference an alternate registry
+entry: 
+   VisualFoxProRuntime   for VFP 3.0
+   VisualFoxProRuntime.5 for VFP 5.0 
+   VisualFoxProRuntime.6 for VFP 6.0  
+The new references must be the same length as the original, so 
+the APP's will pad out shorter references to the required length 
+with "_" characters and truncate longer ones.  The registry entry 
+normally points to the \WINDOWS\SYSTEM directory where the 
+runtime ESL/DLL typically resides.  It is this reference that 
+when changed allows the location and name of the runtime file to be
+modified to your choice. The dependencies are as follows:
+
+             FoxPro Application EXE
+                     \
+                       \  (internally holds)
+                         \
+                     Registry Entry
+                             \
+                               \    (points to)
+                                 \
+                             ESL/DLL location
+                
+Branding Using ReFox and Level II Apps
+--------------------------------------
+1. Produce your VFP EXE application file(s) as normal,
+   with compile set as ENCRYPTED in the project.
+        eg C:\MYSTUFF\MYAPP.EXE
+
+2. Copy the VFP6R.DLL (or VFP500.DLL or VFP300.ESL) 
+   runtime into your app directory, and optionally rename.
+   Also copy the resource DLL files into this directory.
+        eg C:\MYSTUFF\VFP6X.DLL
+
+3. Load ReFox 8.x, ensure options shows Level II Branding.
+   Also the timestamp of the VFP DLL/ESL can be changed, this
+   would be reflected when issuing a VERSION(1), and may
+   therefore help to identify whether a normal or branded VFP
+   DLL/ESL is being run.  The timestamp can be modified to
+   your own values by means of the Options window, positioning
+   the cursor on the Protection Level option and then pressing
+   Ctrl-Enter.
+
+4. Press F6 Brand, Select your EXE files and the corresponding
+   runtime DLL/ESL, and then enter the branding password.
+   Check branding of EXE is successful by selecting and seeing
+   if ReFox no longer recognises it as FoxPro code (just displays
+   file contents). Quit ReFox.
+
+5. Load Visual FoxPro
+
+6. Run LEVII_?0.APP, parameters are :
+        (i) Your new Application Registry entry
+       (ii) New location and name of branded VFP runtime DLL
+      (iii) Location and name of branded FoxPro EXE (optional)
+
+        eg  =LEVII_50('MyFoxProAPP','C:\MYSTUFF\VFP5X.DLL',;
+                                'C:\MYSTUFF\MYAPP.EXE')
+
+7. Run your EXE, which should now work relying only on the
+   specified branded VFP Runtime DLL/ESL.
+
+        eg C:\MYSTUFF\MYAPP.EXE
+
+8. This has set up the application in this current environment
+   only.  
+
+   It is likely that your own installer program can
+   make Registry updates, so after running LEVII_?0.APP to
+   modify the EXE and DLL/ESL files, you just need the installer
+   program to update the registry with the same value as passed
+   as the first parameter to the LEVII_?0.APP.
+
+   The LEVII_?0.APP's create a LEVEL2.REG registry file so the
+   registry options can be seen. Registry files can be imported
+   or processed by clicking on them in the Explorer.
+
+Sample LEVEL2.REG file
+----------------------
+
+   REGEDIT
+   ; Registry entry for ReFox level 2 branded app : c:\vfp5\orb2.exe
+   HKEY_CLASSES_ROOT\MyVisualFoxProApp____ = Microsoft Visual FoxPro 5.0 Runtime
+   HKEY_CLASSES_ROOT\MyVisualFoxProApp____\shell\open\command = C:\VFP5\VFP500.DLL %1
+
+
+
+OTHER APPROACHES
+================
+
+Visual FoxPro 5.0 -D startup switch
+---------------_-------------------
+Visual FoxPro can specify an alternate runtime DLL file by use
+of the startup switch -D.
+
+        eg  Branded Level 2 DLL located in C:\VFP\RUNTIME
+
+            Start branded VFP apps with
+                MYAPP.EXE -DC:\VFP\RUNTIME\VFP500.DLL
+ 
+The disadvantage of this is that users may create shortcuts to the
+applications and lose the startup switch, causing the application to
+fail with incorrect version errors. Care should be taken that the
+correct FoxPro version specific resource file is also used.
+For example, the VFP5ENU.DLL resource from 5.0 will not work with
+5.0a version.  This file can also be mentioned by the -L startup
+switch. Spaces are not allowed in the directory or between the
+switch and the path.
+
+        MYAPP.EXE -DC:\VFP\RT\VFP500.DLL -LC:\VFP\RT\VFP5ENU.DLL
+
+
+Visual FoxPro 6.0 -D startup switch
+----------------_------------------
+Visual FoxPro can also specify an alternate runtime DLL file by use
+of the startup switch -D. However, unlike VFP 5.0 it initially 
+searches in the application directory for the runtime and resource
+DLL files, making the -D option redundant (unless another location
+other than the application is preferred.)
+
+
+Applications Compiled Non-Encrypted
+-----------------------------------
+Applications that are not compiled with the ENCRYPT option still
+work with a branded level II runtime file.
+
+
+Xitech Cryptor 2.5 Users
+------------------------
+Cryptor users who wish to modify the Visual FoxPro runtime file
+to another name should contact Xitech who can give directions to
+patch the FLL accordingly.  Cryptor will otherwise give an 
+"unable to initialize" error if running with a non-standard named
+runtime DLL file.
+
+
+
+        email:  xitech@compuserve.com
+        tel:    +44 (0)1707 276637 
+        fax:    +44 (0)1707 267777 
+        web:    http://www.xitech-europe.co.uk

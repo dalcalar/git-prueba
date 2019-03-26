@@ -1,0 +1,32 @@
+[INSTALLED FILES]
+xprgen25.app=c:\refox8\xprgen25.app
+xprgen30.app=c:\refox8\xprgen30.app
+xprgen20.app=c:\refox8\xprgen20.app
+addrefox.prg=c:\refox8\addrefox.prg
+sprtos.zip=c:\refox8\sprtos.zip
+installd.bat=c:\refox8\installd.bat
+refox.ico=c:\refox8\refox.ico
+levelii.txt=c:\refox8\levelii.txt
+xprgen50.app=c:\refox8\xprgen50.app
+read.me=c:\refox8\read.me
+spacego.prg=c:\refox8\spacego.prg
+buildpjx.prg=c:\refox8\buildpjx.prg
+levii_50.app=c:\refox8\levii_50.app
+levii_30.app=c:\refox8\levii_30.app
+read.me=c:\refox8\apps\read.me
+example.app=c:\refox8\apps\example.app
+example.lfn=c:\refox8\apps\recover\example.lfn
+example.bat=c:\refox8\apps\recover\example.bat
+exampl~1.fxp=c:\refox8\apps\recover\exampl~1.fxp
+product.dbf=c:\refox8\apps\recover\product.dbf
+exampl~1.prg=c:\refox8\apps\recover\exampl~1.prg
+refox8.hlp=c:\refox8\refox8.hlp
+refox8.ini=c:\refox8\refox8.ini
+refox8.exe=c:\refox8\refox8.exe
+hdk3ctnt.dll=c:\windows\hdk3ctnt.dll
+refox8x.hlp=c:\refox8\refox8x.hlp
+
+[PM GROUP]
+PM Group created=ReFox 8.x
+ReFox 8.x Help=c:\refox8\REFOX8X.HLP
+ReFox 8.x=c:\refox8\REFOX8.EXE
